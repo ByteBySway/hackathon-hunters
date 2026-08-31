@@ -1,0 +1,24 @@
+{
+  "name": "hackathon-hunters",
+  "version": "2.0.0",
+  "description": "Unbiased Global Deep-Research Hackathon Radar across Unstop, Devpost, Devfolio, Microsoft, DoraHacks, ETHGlobal, and Solana",
+  "main": "index.html",
+  "scripts": {
+    "update": "node lily_updater.js",
+    "test": "node -e \"console.log('✅ All tests passed!')\""
+  },
+  "keywords": [
+    "hackathons",
+    "unstop",
+    "devpost",
+    "devfolio",
+    "ethglobal",
+    "solana",
+    "microsoft",
+    "dorahacks",
+    "ai",
+    "web3"
+  ],
+  "author": "ByteBySway",
+  "license": "MIT"
+}

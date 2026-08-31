@@ -1,0 +1,38 @@
+name: Lily Hackathon Auto-Updater Engine
+
+on:
+  schedule:
+    # Automatically triggers EVERY 30 MINUTES (e.g. 10:00, 10:30, 11:00...)
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-hackathons:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js Environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run Lily Research Auto-Updater
+        run: |
+          node lily_updater.js
+
+      - name: Commit and Push Changes if Any
+        run: |
+          git config user.name "ByteBySway"
+          git config user.email "ByteBySway@users.noreply.github.com"
+          git add data.js
+          if ! git diff-index --quiet HEAD; then
+            git commit --author="ByteBySway <ByteBySway@users.noreply.github.com>" -m "chore(lily): 30-min automated hackathon dataset update [skip ci]"
+            git push
+          else
+            echo "No dataset changes to commit."
+          fi
