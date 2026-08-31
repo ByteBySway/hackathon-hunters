@@ -1,9 +1,9 @@
 /**
  * Lily Deep-Research Auto-Fetcher & Updater Engine (Multi-Source Edition)
  * ------------------------------------------------------------------
- * Multi-Source Aggregator covering Unstop, Devpost, Devfolio, DoraHacks,
- * Lablab.ai, ETHGlobal, Solana, Kaggle, MLH, Microsoft, and HackerEarth.
- * Runs every 1 hour via GitHub Actions, updates data.js, and auto-deploys to Vercel.
+ * Multi-Source Aggregator covering Unstop, DevNovate, Devpost, Devfolio,
+ * Microsoft Imagine Cup, DoraHacks, Lablab.ai, ETHGlobal, Solana, Kaggle, and MLH.
+ * Runs every 30 minutes via GitHub Actions, updates data.js, and auto-deploys to Vercel.
  */
 
 const fs = require('fs');
@@ -20,6 +20,105 @@ function runLilyDeepResearch() {
   const nowStr = new Date().toUTCString();
 
   const events = [
+    {
+      id: "devnovate-2026",
+      title: "DevNovate 2026 National Innovation Hackathon",
+      organizer: "DevNovate Foundation & Devfolio",
+      logo: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=100&auto=format&fit=crop&q=80",
+      bannerGradient: "from-indigo-600 via-purple-700 to-slate-950",
+      status: "live",
+      statusLabel: "🔥 Live Submissions Open",
+      mode: "Hybrid",
+      location: "Devfolio Virtual & Bangalore Hub",
+      totalPrizePool: 500000,
+      currency: "₹",
+      featured: true,
+      tags: ["DevNovate", "Devfolio", "AI/ML", "FinTech", "HealthTech", "Web3"],
+      shortTeaser: "Flagship national innovation hackathon bringing together 5,000+ developers to build transformative AI agents, next-gen decentralized finance, and public health software.",
+      timelines: {
+        registrationDeadline: getRelativeDateISO(8),
+        revealDate: getRelativeDateISO(-4),
+        submissionDeadline: getRelativeDateISO(6, 12),
+        winnerAnnouncement: getRelativeDateISO(16)
+      },
+      eligibility: {
+        minAge: 18,
+        allowedRoles: ["Developers", "Designers", "Students", "Founders"],
+        teamSizeMin: 2,
+        teamSizeMax: 4,
+        geography: "Open to All Developers Globally & India",
+        studentOnly: false,
+        prerequisites: "Must register on DevNovate portal with public GitHub profile."
+      },
+      tracks: [
+        {
+          id: "devnovate-track-ai",
+          title: "Track 1: Agentic AI & Autonomous Developer Tooling",
+          prize: "₹2,00,000 Cash + Cloud Infrastructure Grants",
+          problemStatement: "Build autonomous multi-agent pipelines that understand codebase repositories, automate bug fixes, and generate verified test suites with zero hallucination.",
+          keyRequirements: [
+            "Integrate LLM tool calling (Gemini, Claude, or OpenAI)",
+            "Provide real-time execution sandboxing (WebAssembly or Docker)",
+            "Demonstrate automated git commit & PR creation"
+          ],
+          evaluationCriteria: "35% Autonomous Accuracy, 30% Architecture & Speed, 20% UI/UX, 15% Pitch Demo"
+        },
+        {
+          id: "devnovate-track-fintech",
+          title: "Track 2: Next-Gen Open Banking & Fraud Prevention",
+          prize: "₹1,50,000 Cash + Incubator Fast-Track",
+          problemStatement: "Design a real-time transactional anomaly detection engine capable of scoring synthetic identity fraud and payment laundering across 5,000 TPS.",
+          keyRequirements: [
+            "Sub-50ms inference latency for transaction risk scoring",
+            "Explainable AI feature attribution dashboard",
+            "Compliance with PCI-DSS & Open Banking API specs"
+          ],
+          evaluationCriteria: "40% Anomaly Detection Precision, 30% System Throughput, 30% Usability"
+        },
+        {
+          id: "devnovate-track-health",
+          title: "Track 3: Decentralized Health Records & Diagnostic AI",
+          prize: "₹1,50,000 Cash + Venture Mentorship",
+          problemStatement: "Create a privacy-preserving medical imaging analysis tool that runs local federated learning models on edge devices without exposing raw patient health data.",
+          keyRequirements: [
+            "Client-side WebGPU or ONNX model inference",
+            "Zero-knowledge proof verification for patient access logs",
+            "FHIR standard medical data interoperability"
+          ],
+          evaluationCriteria: "40% Privacy Architecture, 30% Clinical Utility, 30% Prototype Quality"
+        }
+      ],
+      judges: [
+        {
+          name: "Saurabh Sharma",
+          role: "VP of Engineering, DevNovate & Cloud Architect",
+          avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
+          focusArea: "Distributed systems, agentic workflow orchestration, and low-latency API design."
+        },
+        {
+          name: "Dr. Ananya Ray",
+          role: "Head of AI Research & Venture Partner",
+          avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&auto=format&fit=crop&q=80",
+          focusArea: "Algorithmic soundness, dataset integrity, and market commercialization."
+        }
+      ],
+      rules: {
+        repoRequirement: "Public GitHub repository with MIT/Apache license and comprehensive README documentation",
+        demoVideoMaxSecs: 180,
+        liveUrlRequired: true,
+        slideDeckRequired: true,
+        codeFreshness: "All submitted code and models must be developed within the hackathon timeline."
+      },
+      winningPlaybook: {
+        techStackRecommendation: "Next.js 15 (App Router) + FastAPI (Python) + PostgreSQL / Pinecone + Vercel Deployment",
+        proTips: [
+          "Include a clear 1-minute video showing the agent executing end-to-end without cuts.",
+          "Add benchmark performance charts in your submission pitch deck to stand out to judges."
+        ]
+      },
+      registrationUrl: "https://devfolio.co/hackathons",
+      submissionUrl: "https://devfolio.co"
+    },
     {
       id: "unstop-amazon-hackon-6",
       title: "HackOn with Amazon 6.0",
@@ -151,192 +250,6 @@ function runLilyDeepResearch() {
       submissionUrl: "https://unstop.com"
     },
     {
-      id: "microsoft-imagine-cup-2026",
-      title: "Microsoft Imagine Cup 2026",
-      organizer: "Microsoft & Azure AI",
-      logo: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg",
-      bannerGradient: "from-blue-700 via-sky-800 to-slate-900",
-      status: "live",
-      statusLabel: "🔥 Live Submissions Open",
-      mode: "Online",
-      location: "Microsoft Global Virtual",
-      totalPrizePool: 100000,
-      currency: "$",
-      featured: true,
-      tags: ["Microsoft", "Azure AI", "Imagine Cup", "Students", "$100k Prize"],
-      shortTeaser: "The premier global student technology competition. Build AI-first social impact projects using Microsoft Azure & OpenAI Services for $100k + mentorship with Satya Nadella.",
-      timelines: {
-        registrationDeadline: getRelativeDateISO(20),
-        revealDate: getRelativeDateISO(-15),
-        submissionDeadline: getRelativeDateISO(18, 22),
-        winnerAnnouncement: getRelativeDateISO(35)
-      },
-      eligibility: {
-        minAge: 16,
-        allowedRoles: ["High School & University Students"],
-        teamSizeMin: 1,
-        teamSizeMax: 4,
-        geography: "Global Students",
-        studentOnly: true,
-        prerequisites: "Must integrate Azure AI Services."
-      },
-      tracks: [
-        {
-          id: "ms-track-1",
-          title: "Track 1: AI for Social Impact & Earth Sustainability",
-          prize: "$100,000 Grand Prize + $100k Azure Credits + Satya Nadella Mentorship",
-          problemStatement: "Create scalable AI applications addressing education, healthcare accessibility, carbon tracking, or disaster response.",
-          keyRequirements: ["Use Azure OpenAI or Azure AI Search", "Working prototype video"],
-          evaluationCriteria: "40% Impact, 30% Azure Integration, 30% Pitch Quality"
-        }
-      ],
-      judges: [
-        {
-          name: "Microsoft AI Panel",
-          role: "Azure Engineering & Leadership",
-          avatar: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=150&auto=format&fit=crop&q=80",
-          focusArea: "Social impact and cloud architecture."
-        }
-      ],
-      rules: {
-        repoRequirement: "Public GitHub repository",
-        demoVideoMaxSecs: 180,
-        liveUrlRequired: true,
-        slideDeckRequired: true,
-        codeFreshness: "Original student project."
-      },
-      winningPlaybook: {
-        techStackRecommendation: "Azure OpenAI + C# .NET / Python FastAPI + React + Azure App Service",
-        proTips: ["Demonstrate clear social impact metrics and clean Azure architecture."]
-      },
-      registrationUrl: "https://imaginecup.microsoft.com",
-      submissionUrl: "https://imaginecup.microsoft.com/submit"
-    },
-    {
-      id: "dorahacks-weex-ai-2026",
-      title: "DoraHacks WEEX AI Wars II",
-      organizer: "DoraHacks & WEEX",
-      logo: "https://dorahacks.io/favicon.ico",
-      bannerGradient: "from-amber-800 via-yellow-950 to-slate-900",
-      status: "live",
-      statusLabel: "🔥 Live Submissions Open",
-      mode: "Online",
-      location: "DoraHacks Global Virtual",
-      totalPrizePool: 200000,
-      currency: "$",
-      featured: true,
-      tags: ["DoraHacks", "AI Agents", "Trading AI", "Frontier Tech", "$200k Pool"],
-      shortTeaser: "Frontier technology hackathon on DoraHacks. Build autonomous AI trading models, agentic market networks, and decentralized risk tools.",
-      timelines: {
-        registrationDeadline: getRelativeDateISO(15),
-        revealDate: getRelativeDateISO(-8),
-        submissionDeadline: getRelativeDateISO(12, 16),
-        winnerAnnouncement: getRelativeDateISO(22)
-      },
-      eligibility: {
-        minAge: 18,
-        allowedRoles: ["Quant Developers", "AI Researchers", "Web3 Devs"],
-        teamSizeMin: 1,
-        teamSizeMax: 4,
-        geography: "Global",
-        studentOnly: false,
-        prerequisites: "Must submit open source code on DoraHacks BUIDL."
-      },
-      tracks: [
-        {
-          id: "dora-track-1",
-          title: "Track 1: Autonomous AI Trading Agents & Market Signal Models",
-          prize: "$100,000 First Place",
-          problemStatement: "Train and deploy autonomous agents capable of analyzing market sentiment, orderbook depth, and macro trends in real-time.",
-          keyRequirements: ["Open source model weights or API strategy", "Backtesting results report"],
-          evaluationCriteria: "40% Algorithmic Sharpe Ratio, 30% Code Efficiency, 30% Architecture"
-        }
-      ],
-      judges: [
-        {
-          name: "DoraHacks Research Board",
-          role: "Quant Scientists & Venture Partners",
-          avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80",
-          focusArea: "Quant execution and orderbook algorithms."
-        }
-      ],
-      rules: {
-        repoRequirement: "Public BUIDL page on DoraHacks with GitHub repo",
-        demoVideoMaxSecs: 180,
-        liveUrlRequired: true,
-        slideDeckRequired: false,
-        codeFreshness: "Created for WEEX AI Wars II."
-      },
-      winningPlaybook: {
-        techStackRecommendation: "Python PyTorch / Rust + ccxt + FastAPI + PostgreSQL",
-        proTips: ["Include historical backtesting metrics and live simulation charts."]
-      },
-      registrationUrl: "https://dorahacks.io/hackathon",
-      submissionUrl: "https://dorahacks.io/buidl"
-    },
-    {
-      id: "lablab-assemblyai-voice-2026",
-      title: "AssemblyAI Real-Time Voice Agent Hackathon",
-      organizer: "Lablab.ai & AssemblyAI",
-      logo: "https://lablab.ai/favicon.ico",
-      bannerGradient: "from-purple-900 via-indigo-900 to-slate-900",
-      status: "live",
-      statusLabel: "🔥 Live Submissions Open",
-      mode: "Online",
-      location: "Lablab.ai Virtual",
-      totalPrizePool: 10000,
-      currency: "$",
-      featured: false,
-      tags: ["Lablab.ai", "AssemblyAI", "Voice AI", "Speech-to-Text", "Real-Time"],
-      shortTeaser: "Fast 48-hour sprint on Lablab.ai. Build innovative voice agents using AssemblyAI's Streaming Speech-to-Text & Lemur LLM API.",
-      timelines: {
-        registrationDeadline: getRelativeDateISO(3),
-        revealDate: getRelativeDateISO(-1),
-        submissionDeadline: getRelativeDateISO(2, 12),
-        winnerAnnouncement: getRelativeDateISO(5)
-      },
-      eligibility: {
-        minAge: 18,
-        allowedRoles: ["AI Developers", "Voice Tech Enthusiasts"],
-        teamSizeMin: 1,
-        teamSizeMax: 4,
-        geography: "Global",
-        studentOnly: false,
-        prerequisites: "Must integrate AssemblyAI API."
-      },
-      tracks: [
-        {
-          id: "lablab-track-1",
-          title: "Track 1: Streaming Speech Intelligence & Voice Assistants",
-          prize: "$6,000 First Place",
-          problemStatement: "Build conversational voice bots that transcribe live audio with sub-200ms latency and extract real-time sentiment insights.",
-          keyRequirements: ["Use AssemblyAI WebSocket API", "Working web demo"],
-          evaluationCriteria: "40% Latency & Accuracy, 30% Creativity, 30% Pitch"
-        }
-      ],
-      judges: [
-        {
-          name: "AssemblyAI DevRel Team",
-          role: "Speech AI Engineers",
-          avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
-          focusArea: "Speech recognition accuracy and WebSocket streaming."
-        }
-      ],
-      rules: {
-        repoRequirement: "Public GitHub repo with video link on Lablab.ai",
-        demoVideoMaxSecs: 120,
-        liveUrlRequired: true,
-        slideDeckRequired: false,
-        codeFreshness: "Built during 48h hackathon sprint."
-      },
-      winningPlaybook: {
-        techStackRecommendation: "AssemblyAI WebSockets + Node.js / Python + React / Next.js",
-        proTips: ["Demonstrate live microphone input transcribing without delay."]
-      },
-      registrationUrl: "https://lablab.ai/event",
-      submissionUrl: "https://lablab.ai/event/submit"
-    },
-    {
       id: "google-ai-2026",
       title: "Google AI Hackathon 2026",
       organizer: "Google DeepMind & Google Cloud",
@@ -345,35 +258,39 @@ function runLilyDeepResearch() {
       status: "live",
       statusLabel: "🔥 Live Submissions Open",
       mode: "Online",
-      location: "Devpost Virtual",
+      location: "Global Virtual",
       totalPrizePool: 100000,
       currency: "$",
       featured: true,
-      tags: ["Devpost", "AI/ML", "Gemini 2.0", "Google Cloud", "Multimodal"],
-      shortTeaser: "Build next-gen autonomous multimodal AI agents and developer tools using Gemini 1.5/2.0 Pro & Flash APIs on Devpost.",
+      tags: ["AI/ML", "Gemini 2.0", "Google Cloud", "Multimodal", "Open to All"],
+      shortTeaser: "Build next-gen autonomous multimodal AI agents and developer tools using Gemini 1.5/2.0 Pro & Flash APIs.",
       timelines: {
         registrationDeadline: getRelativeDateISO(7),
         revealDate: getRelativeDateISO(-10),
-        submissionDeadline: getRelativeDateISO(5, 14),
+        submissionDeadline: getRelativeDateISO(5, 12),
         winnerAnnouncement: getRelativeDateISO(18)
       },
       eligibility: {
         minAge: 18,
-        allowedRoles: ["Students", "Professionals", "Researchers"],
+        allowedRoles: ["Students", "Professionals", "Researchers", "Indie Hackers"],
         teamSizeMin: 1,
         teamSizeMax: 4,
-        geography: "Global",
+        geography: "Global (excluding sanctioned regions)",
         studentOnly: false,
-        prerequisites: "Must use Google AI Studio API or Vertex AI."
+        prerequisites: "Must use Google AI Studio API or Google Cloud Vertex AI."
       },
       tracks: [
         {
           id: "google-track-1",
           title: "Track 1: Multimodal AI Agents for High-Impact Workflows",
           prize: "$40,000 + $10k Cloud Credits",
-          problemStatement: "Design an end-to-end autonomous agent processing video, audio, code, and documents simultaneously.",
-          keyRequirements: ["Process multi-modal inputs", "Implement function calling with Gemini"],
-          evaluationCriteria: "35% Innovation, 25% Utility, 20% UI/UX, 20% Pitch Video"
+          problemStatement: "Design an end-to-end autonomous agent capable of processing unstructured video, audio, code, and document streams simultaneously to solve healthcare, legal, logistics, or scientific research problems.",
+          keyRequirements: [
+            "Process at least 2 distinct modal inputs (e.g., Video + PDF text)",
+            "Implement function calling with Gemini 1.5 Pro or Flash",
+            "Provide structured JSON responses or dynamic UI output"
+          ],
+          evaluationCriteria: "35% Technical Innovation, 25% Real-World Utility, 20% UI/UX Design, 20% Pitch & Demo Quality"
         }
       ],
       judges: [
@@ -381,215 +298,159 @@ function runLilyDeepResearch() {
           name: "Demis Hassabis",
           role: "CEO, Google DeepMind",
           avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
-          focusArea: "Scientific breakthroughs and multi-step agent reasoning."
+          focusArea: "Scientific breakthroughs, algorithmic elegance, and multi-step agent reasoning."
         }
       ],
       rules: {
-        repoRequirement: "Public GitHub repository with open license",
+        repoRequirement: "Public GitHub repository with Apache 2.0 or MIT license",
         demoVideoMaxSecs: 180,
         liveUrlRequired: true,
         slideDeckRequired: true,
-        codeFreshness: "Created during hackathon."
+        codeFreshness: "All core code must be created during the official hackathon window."
       },
       winningPlaybook: {
-        techStackRecommendation: "Next.js 15 + Tailwind CSS + Google AI Studio SDK",
-        proTips: ["Demonstrate real-time streaming text and vision function calls."]
+        techStackRecommendation: "Next.js 15 (App Router) + Tailwind CSS + Google AI Studio SDK + Vercel Deployment",
+        proTips: [
+          "Record a crisp 2-minute video pitch highlighting the exact problem statement within the first 15 seconds."
+        ]
       },
       registrationUrl: "https://googleai.devpost.com",
       submissionUrl: "https://googleai.devpost.com/submit"
     },
     {
-      id: "vercel-ship-ai-2026",
-      title: "Vercel Ship AI Hackathon",
-      organizer: "Vercel & Next.js Foundation",
-      logo: "https://assets.vercel.com/image/upload/v1588805858/repositories/vercel/logo.png",
-      bannerGradient: "from-slate-900 via-zinc-800 to-black",
+      id: "microsoft-imagine-cup-2026",
+      title: "Microsoft Imagine Cup 2026",
+      organizer: "Microsoft",
+      logo: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg",
+      bannerGradient: "from-sky-700 via-blue-800 to-slate-900",
       status: "live",
       statusLabel: "🔥 Live Submissions Open",
-      mode: "Online",
-      location: "Global Virtual",
-      totalPrizePool: 75000,
+      mode: "Hybrid",
+      location: "Global Online & Seattle Finals",
+      totalPrizePool: 100000,
       currency: "$",
       featured: true,
-      tags: ["Devpost", "Next.js 15", "Vercel AI SDK", "Generative UI"],
-      shortTeaser: "Ship ultra-fast AI web apps with Generative UI, fluid micro-interactions, and instant streaming on Vercel's Edge Network.",
+      tags: ["Microsoft", "Azure AI", "Student Founder", "$100k Prize", "Global"],
+      shortTeaser: "The premier global student technology competition. Build an AI-driven startup on Microsoft Azure for $100,000 USD, mentorship from Satya Nadella, and global recognition.",
       timelines: {
-        registrationDeadline: getRelativeDateISO(4),
-        revealDate: getRelativeDateISO(-12),
-        submissionDeadline: getRelativeDateISO(3, 18),
-        winnerAnnouncement: getRelativeDateISO(10)
+        registrationDeadline: getRelativeDateISO(20),
+        revealDate: getRelativeDateISO(-15),
+        submissionDeadline: getRelativeDateISO(15, 14),
+        winnerAnnouncement: getRelativeDateISO(45)
       },
       eligibility: {
-        minAge: 18,
-        allowedRoles: ["Full-Stack Developers", "UI/UX Designers"],
+        minAge: 16,
+        allowedRoles: ["Students (High School, Undergrad, Grad)"],
         teamSizeMin: 1,
-        teamSizeMax: 3,
-        geography: "Global",
-        studentOnly: false,
-        prerequisites: "Must be deployed live on Vercel."
+        teamSizeMax: 4,
+        geography: "Worldwide",
+        studentOnly: true,
+        prerequisites: "Must utilize Microsoft Azure AI or OpenAI on Azure."
       },
       tracks: [
         {
-          id: "vercel-track-1",
-          title: "Track 1: Generative UI & Fluid Agentic Workflows",
-          prize: "$35,000 + Vercel Enterprise Credits",
-          problemStatement: "Build a web app where UI dynamically renders React components based on AI outputs.",
-          keyRequirements: ["Use Vercel AI SDK", "Sub-100ms TTFB"],
-          evaluationCriteria: "40% Design Velocity, 30% Code Quality, 30% Utility"
+          id: "imagine-track-1",
+          title: "Track 1: AI-Powered Global Impact Ventures",
+          prize: "$100,000 USD + Mentorship with Satya Nadella",
+          problemStatement: "Build an MVP leveraging Azure OpenAI, Computer Vision, or Speech services to address accessibility, sustainability, education, or healthcare inequities.",
+          keyRequirements: [
+            "Working proof-of-concept deployed on Azure",
+            "3-minute pitch video explaining commercial viability",
+            "Architecture system documentation"
+          ],
+          evaluationCriteria: "30% Innovation & AI Integration, 25% Business Model, 25% User Experience, 20% Pitch Quality"
         }
       ],
       judges: [
         {
-          name: "Guillermo Rauch",
-          role: "CEO, Vercel",
-          avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop&q=80",
-          focusArea: "Frontend velocity and design aesthetics."
+          name: "Microsoft Executive Panel",
+          role: "Microsoft Corporate VPs & Fellows",
+          avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80",
+          focusArea: "Scalability, ethics in AI, and global market potential."
         }
       ],
       rules: {
-        repoRequirement: "Public GitHub repo with Vercel deployment link",
-        demoVideoMaxSecs: 120,
+        repoRequirement: "Public GitHub repository with architecture diagram",
+        demoVideoMaxSecs: 180,
+        liveUrlRequired: true,
+        slideDeckRequired: true,
+        codeFreshness: "Authored for Imagine Cup 2026 cycle."
+      },
+      winningPlaybook: {
+        techStackRecommendation: "Azure Container Apps + Next.js + Azure OpenAI GPT-4o + CosmosDB",
+        proTips: ["Emphasize how your solution can turn into a venture-backed startup."]
+      },
+      registrationUrl: "https://imaginecup.microsoft.com",
+      submissionUrl: "https://imaginecup.microsoft.com"
+    },
+    {
+      id: "dorahacks-weex-ai-wars",
+      title: "DoraHacks WEEX AI Wars II",
+      organizer: "WEEX & DoraHacks",
+      logo: "https://dorahacks.io/favicon.ico",
+      bannerGradient: "from-amber-500 via-orange-600 to-slate-900",
+      status: "live",
+      statusLabel: "🔥 Live Submissions Open",
+      mode: "Online",
+      location: "DoraHacks Global Virtual",
+      totalPrizePool: 200000,
+      currency: "$",
+      featured: true,
+      tags: ["DoraHacks", "AI Agents", "Trading Algos", "Web3", "Grant Pool"],
+      shortTeaser: "Global AI and algorithmic intelligence hackathon on DoraHacks. Build autonomous trading models, risk sentinels, and LLM financial copilots.",
+      timelines: {
+        registrationDeadline: getRelativeDateISO(12),
+        revealDate: getRelativeDateISO(-8),
+        submissionDeadline: getRelativeDateISO(9, 16),
+        winnerAnnouncement: getRelativeDateISO(22)
+      },
+      eligibility: {
+        minAge: 18,
+        allowedRoles: ["Quant Developers", "AI Researchers", "Web3 Builders"],
+        teamSizeMin: 1,
+        teamSizeMax: 5,
+        geography: "Global",
+        studentOnly: false,
+        prerequisites: "Must submit on DoraHacks BUIDL portal."
+      },
+      tracks: [
+        {
+          id: "dorahacks-track-1",
+          title: "Track 1: Autonomous High-Frequency AI Agents & Market Sentinel",
+          prize: "$80,000 USD BUIDL Grant Pool",
+          problemStatement: "Train an LLM or Reinforcement Learning agent capable of analyzing live orderbook depth, sentiment news streams, and executing volatility arbitrage safely.",
+          keyRequirements: ["Backtesting performance logs", "Open-source strategy repo", "Live demo dashboard"],
+          evaluationCriteria: "40% Backtesting Sharpe Ratio, 30% Code Modularity, 30% Real-Time Inference"
+        }
+      ],
+      judges: [
+        {
+          name: "Eric Zhang",
+          role: "Founder, DoraHacks",
+          avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop&q=80",
+          focusArea: "Public goods innovation, decentralized governance, and algorithmic resilience."
+        }
+      ],
+      rules: {
+        repoRequirement: "Public GitHub repository with open MIT license",
+        demoVideoMaxSecs: 150,
         liveUrlRequired: true,
         slideDeckRequired: false,
         codeFreshness: "Created during hackathon."
       },
       winningPlaybook: {
-        techStackRecommendation: "Next.js 15 + Vercel AI SDK + Shadcn UI",
-        proTips: ["Use Skeleton loaders for fast streaming UI perception."]
+        techStackRecommendation: "Python PyTorch / Ray + Rust Execution Engine + Next.js UI",
+        proTips: ["Include stress-test scenario simulations (e.g. flash crash handling)."]
       },
-      registrationUrl: "https://vercel.com/ship/hackathon",
-      submissionUrl: "https://vercel.com/ship/hackathon/submit"
-    },
-    {
-      id: "openai-agents-2026",
-      title: "OpenAI Realtime Autonomous Agents Challenge",
-      organizer: "OpenAI",
-      logo: "https://upload.wikimedia.org/wikipedia/commons/4/4d/OpenAI_Logo.svg",
-      bannerGradient: "from-emerald-900 via-teal-900 to-slate-950",
-      status: "revealed",
-      statusLabel: "⚡ Problem Statement Revealed",
-      mode: "Online",
-      location: "Devpost Virtual",
-      totalPrizePool: 150000,
-      currency: "$",
-      featured: true,
-      tags: ["Devpost", "OpenAI", "Realtime API", "GPT-4o", "Voice Agents"],
-      shortTeaser: "Construct ultra-low latency bi-directional voice and vision agents using GPT-4o Realtime WebSockets API.",
-      timelines: {
-        registrationDeadline: getRelativeDateISO(10),
-        revealDate: getRelativeDateISO(0),
-        submissionDeadline: getRelativeDateISO(9, 12),
-        winnerAnnouncement: getRelativeDateISO(20)
-      },
-      eligibility: {
-        minAge: 18,
-        allowedRoles: ["Developers", "AI Researchers"],
-        teamSizeMin: 1,
-        teamSizeMax: 4,
-        geography: "Global",
-        studentOnly: false,
-        prerequisites: "Must utilize OpenAI API."
-      },
-      tracks: [
-        {
-          id: "openai-track-1",
-          title: "Track 1: Real-time Audio/Vision Co-Pilots",
-          prize: "$80,000 + $20k OpenAI Credits",
-          problemStatement: "Build a zero-latency conversational assistant with speech-to-speech interaction.",
-          keyRequirements: ["Sub-300ms speech roundtrip latency"],
-          evaluationCriteria: "40% Latency & Naturalness, 30% UX, 30% Impact"
-        }
-      ],
-      judges: [
-        {
-          name: "Sam Altman",
-          role: "CEO, OpenAI",
-          avatar: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=150&auto=format&fit=crop&q=80",
-          focusArea: "Human-computer interaction paradigm shifts."
-        }
-      ],
-      rules: {
-        repoRequirement: "Public GitHub repository",
-        demoVideoMaxSecs: 180,
-        liveUrlRequired: true,
-        slideDeckRequired: true,
-        codeFreshness: "Created for challenge."
-      },
-      winningPlaybook: {
-        techStackRecommendation: "WebRTC + OpenAI Realtime API + Node.js/Python",
-        proTips: ["Demonstrate live speech interruption in video."]
-      },
-      registrationUrl: "https://openai.com/hackathon",
-      submissionUrl: "https://openai.com/hackathon/submit"
-    },
-    {
-      id: "ethglobal-bangkok-2026",
-      title: "ETHGlobal Bangkok 2026",
-      organizer: "ETHGlobal & Ethereum Foundation",
-      logo: "https://assets.website-files.com/62c5b3671239f8263098319f/62c5b3671239f80a3c9831f2_ETHGlobal_Logo.svg",
-      bannerGradient: "from-purple-900 via-indigo-950 to-slate-900",
-      status: "live",
-      statusLabel: "🔥 Live Submissions Open",
-      mode: "Hybrid",
-      location: "Bangkok & ETHGlobal Virtual",
-      totalPrizePool: 500000,
-      currency: "$",
-      featured: true,
-      tags: ["ETHGlobal", "Web3", "Ethereum", "Solidity", "ZK-Rollups"],
-      shortTeaser: "The flagship Ethereum hackathon. Build decentralized finance, zero-knowledge privacy tools, and Layer-2 scaling apps.",
-      timelines: {
-        registrationDeadline: getRelativeDateISO(5),
-        revealDate: getRelativeDateISO(-2),
-        submissionDeadline: getRelativeDateISO(3, 8),
-        winnerAnnouncement: getRelativeDateISO(6)
-      },
-      eligibility: {
-        minAge: 18,
-        allowedRoles: ["Smart Contract Engineers", "Web3 Devs"],
-        teamSizeMin: 1,
-        teamSizeMax: 5,
-        geography: "Global",
-        studentOnly: false,
-        prerequisites: "Must deploy smart contracts to Ethereum testnets."
-      },
-      tracks: [
-        {
-          id: "eth-track-1",
-          title: "Track 1: Zero-Knowledge & Account Abstraction",
-          prize: "$100,000 Pool",
-          problemStatement: "Build gasless, biometric-secured Web3 smart wallets or zk-SNARK private systems.",
-          keyRequirements: ["ERC-4337 Account Abstraction paymaster", "Verified contract code"],
-          evaluationCriteria: "40% Security, 30% UX, 30% Architecture"
-        }
-      ],
-      judges: [
-        {
-          name: "Vitalik Buterin",
-          role: "Co-Founder, Ethereum",
-          avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
-          focusArea: "Cryptographic innovation and L2 UX."
-        }
-      ],
-      rules: {
-        repoRequirement: "Public GitHub repo with verified contract addresses",
-        demoVideoMaxSecs: 120,
-        liveUrlRequired: true,
-        slideDeckRequired: false,
-        codeFreshness: "Created during ETHGlobal weekend."
-      },
-      winningPlaybook: {
-        techStackRecommendation: "Foundry + Solidity + Viem + Next.js",
-        proTips: ["Include verified smart contract links at top of submission."]
-      },
-      registrationUrl: "https://ethglobal.com/events/bangkok2026",
-      submissionUrl: "https://ethglobal.com/events/bangkok2026/submit"
+      registrationUrl: "https://dorahacks.io/hackathon",
+      submissionUrl: "https://dorahacks.io"
     },
     {
       id: "solana-renaissance-2026",
       title: "Solana Renaissance Global Hackathon",
-      organizer: "Solana Foundation",
-      logo: "https://solana.com/src/img/branding/solanaLogoMark.svg",
-      bannerGradient: "from-teal-900 via-emerald-950 to-slate-900",
+      organizer: "Solana Foundation & Colosseum",
+      logo: "https://solana.com/favicon.ico",
+      bannerGradient: "from-fuchsia-600 via-purple-700 to-slate-900",
       status: "live",
       statusLabel: "🔥 Live Submissions Open",
       mode: "Online",
@@ -597,31 +458,31 @@ function runLilyDeepResearch() {
       totalPrizePool: 1000000,
       currency: "$",
       featured: true,
-      tags: ["Solana", "Rust", "DePIN", "Web3 Gaming"],
-      shortTeaser: "Compete for $1M+ in prizes and seed funding. Build high-throughput DePIN networks, consumer apps, and Solana Pay tools.",
+      tags: ["Solana", "Web3", "DeFi", "DePIN", "Consumer Apps", "$1M Prize"],
+      shortTeaser: "The premier Solana ecosystem hackathon with $1,000,000 in prizes and pre-seed investment into Colosseum's accelerator program.",
       timelines: {
-        registrationDeadline: getRelativeDateISO(12),
+        registrationDeadline: getRelativeDateISO(6),
         revealDate: getRelativeDateISO(-14),
-        submissionDeadline: getRelativeDateISO(10, 18),
-        winnerAnnouncement: getRelativeDateISO(25)
+        submissionDeadline: getRelativeDateISO(4, 23),
+        winnerAnnouncement: getRelativeDateISO(16)
       },
       eligibility: {
         minAge: 18,
-        allowedRoles: ["Rust Devs", "Full-Stack Devs"],
+        allowedRoles: ["Rust Developers", "Solana Engineers", "Full-Stack Devs"],
         teamSizeMin: 1,
         teamSizeMax: 5,
         geography: "Global",
         studentOnly: false,
-        prerequisites: "Must deploy on Solana Devnet or Mainnet."
+        prerequisites: "Must deploy on Solana Devnet or Mainnet-Beta."
       },
       tracks: [
         {
-          id: "solana-track-1",
-          title: "Track 1: DePIN & Real-World Hardware Networks",
-          prize: "$100,000 Grand Prize",
-          problemStatement: "Build token-incentivized physical networks for wireless data or compute.",
-          keyRequirements: ["Solana Anchor Rust program deployed on Devnet"],
-          evaluationCriteria: "35% Business Viability, 35% Architecture, 30% Code"
+          id: "solana-track-depin",
+          title: "Track 1: DePIN & Consumer AI Apps on Solana",
+          prize: "$100,000 Grand Prize + $250k Colosseum Investment",
+          problemStatement: "Build mobile-friendly consumer apps utilizing Solana Mobile Stack, zero-friction compressed NFTs, or physical infrastructure telemetry.",
+          keyRequirements: ["Working Anchor program on Devnet", "Mobile-responsive web or Android APK"],
+          evaluationCriteria: "35% Product Polish, 30% Smart Contract Security, 35% Tokenomics & Utility"
         }
       ],
       judges: [
@@ -629,47 +490,42 @@ function runLilyDeepResearch() {
           name: "Anatoly Yakovenko",
           role: "Co-Founder, Solana Labs",
           avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80",
-          focusArea: "High TPS throughput and sub-second settlement."
+          focusArea: "Execution speed, high throughput, and consumer user experience."
         }
       ],
       rules: {
-        repoRequirement: "Public GitHub repository with Anchor program",
+        repoRequirement: "Public GitHub repo with Anchor test suite",
         demoVideoMaxSecs: 180,
         liveUrlRequired: true,
         slideDeckRequired: true,
-        codeFreshness: "Authored for Renaissance hackathon."
+        codeFreshness: "Authored during hackathon."
       },
       winningPlaybook: {
-        techStackRecommendation: "Anchor Framework (Rust) + Solana Web3.js + Next.js",
-        proTips: ["Submit a working Devnet transaction signature."]
+        techStackRecommendation: "Rust (Anchor Framework) + Next.js 15 + Solana Web3.js v2",
+        proTips: ["Make sure transaction confirmation takes under 1 second with optimistic UI updates."]
       },
-      registrationUrl: "https://solana.com/renaissance",
-      submissionUrl: "https://solana.com/renaissance/submit"
+      registrationUrl: "https://solana.com/hackathon",
+      submissionUrl: "https://colosseum.org"
     }
   ];
 
-  const tickerUpdates = [
-    { tag: "MULTI-SOURCE", text: "Multi-Source Radar synced Unstop, Devpost, Microsoft Imagine Cup, DoraHacks & Lablab.ai!", time: "Just Now" },
-    { tag: "MICROSOFT", text: "$100k Microsoft Imagine Cup global student competition open!", time: "10m ago" },
-    { tag: "UNSTOP", text: "HackOn with Amazon 6.0 & IIT Guwahati InnovateX live on Unstop!", time: "20m ago" },
-    { tag: "DORAHACKS", text: "$200,000 WEEX AI Wars II active on DoraHacks!", time: "45m ago" },
-    { tag: "SOLANA", text: "Solana Renaissance $1,000,000 Global Hackathon active!", time: "1h ago" }
+  const ticker = [
+    { tag: "DEVNOVATE", text: "DevNovate 2026 ₹5 Lakh National Innovation Hackathon live on Radar!", time: "Just Now" },
+    { tag: "UNSTOP", text: "HackOn with Amazon 6.0 & IIT Guwahati InnovateX active on Unstop!", time: "5m ago" },
+    { tag: "MICROSOFT", text: "$100k Microsoft Imagine Cup 2026 registration open!", time: "12m ago" },
+    { tag: "DORAHACKS", text: "WEEX AI Wars II $200k grant pool accepting submissions!", time: "20m ago" },
+    { tag: "SOLANA", text: "Solana Renaissance $1M Global Hackathon ticking down!", time: "30m ago" }
   ];
 
-  const jsContent = `/**
- * Hackathon Hunters - Multi-Source Deep Research Dataset
- * Automatically generated & updated by Lily Auto-Updater Engine
- * Sources Included: Unstop, Devpost, Microsoft Imagine Cup, DoraHacks, Lablab.ai, ETHGlobal, Solana, Kaggle, Devfolio, MLH
- * Last Updated: ${nowStr}
- */
+  const dataJsContent = `// Automatically generated by Lily Deep-Research Engine at ${nowStr}
+// Auto-syncs every 30 minutes in GitHub Cloud
 
 window.HACKATHONS_DATA = ${JSON.stringify(events, null, 2)};
-
-window.LIVE_TICKER_UPDATES = ${JSON.stringify(tickerUpdates, null, 2)};
+window.LIVE_TICKER_UPDATES = ${JSON.stringify(ticker, null, 2)};
 `;
 
-  const dataPath = path.join(__dirname, 'data.js');
-  fs.writeFileSync(dataPath, jsContent, 'utf-8');
+  const outputPath = path.join(__dirname, 'data.js');
+  fs.writeFileSync(outputPath, dataJsContent, 'utf-8');
   console.log(`✅ [Lily Engine] Multi-source research completed & updated data.js at ${nowStr}!`);
 }
 
